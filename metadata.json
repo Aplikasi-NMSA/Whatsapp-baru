@@ -1,0 +1,6 @@
+{
+  "name": "WhatsPro AI CRM - Enterprise WhatsApp Web & AI Business Suite",
+  "description": "Tautkan WhatsApp pribadi menjadi WhatsApp Business Premium dengan AI Chatbot otomatis (Gemini), CRM kontak terintegrasi, QR Code Multi-Device 1x scan, dan link cron UptimeRobot 24/7.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
