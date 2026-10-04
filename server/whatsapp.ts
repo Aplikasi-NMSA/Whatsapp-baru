@@ -450,7 +450,7 @@ export class WhatsAppService {
     return false;
   }
 
-  public async logout(): Promise<void> {
+  public async logout(andRegenerate = true): Promise<void> {
     if (this.sock) {
       try {
         await this.sock.logout();
@@ -468,6 +468,11 @@ export class WhatsAppService {
       error: null
     };
     this.broadcast('status_update', this.status);
+
+    if (andRegenerate) {
+      this.isInitializing = false;
+      await this.initWhatsApp(true);
+    }
   }
 
   public clearAuthFolder() {

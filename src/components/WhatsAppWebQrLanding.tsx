@@ -24,6 +24,7 @@ interface WhatsAppWebQrLandingProps {
   stats: ServerStats | null;
   onRefreshQr: () => void;
   onResetSession: () => void;
+  onDisconnect?: () => void;
   onEnterDashboard: () => void;
 }
 
@@ -32,6 +33,7 @@ export const WhatsAppWebQrLanding: React.FC<WhatsAppWebQrLandingProps> = ({
   stats,
   onRefreshQr,
   onResetSession,
+  onDisconnect,
   onEnterDashboard,
 }) => {
   const [method, setMethod] = useState<'qr' | 'pairing'>('qr');
@@ -163,14 +165,22 @@ export const WhatsAppWebQrLanding: React.FC<WhatsAppWebQrLandingProps> = ({
                 </div>
               </div>
 
-              <div className="pt-2 flex items-center justify-center gap-3">
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <button
                   onClick={onEnterDashboard}
                   className="px-6 py-3 bg-[#00a884] hover:bg-[#009172] text-white rounded-xl text-sm font-bold shadow-lg shadow-emerald-600/30 flex items-center gap-2 transition-all"
                 >
-                  <span>Masuk ke Dasbor CRM & AI Sekarang</span>
+                  <span>Masuk ke Dasbor CRM & AI</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
+                {onDisconnect && (
+                  <button
+                    onClick={onDisconnect}
+                    className="px-4 py-3 bg-slate-800 hover:bg-rose-950/40 text-slate-300 hover:text-rose-400 border border-slate-700 hover:border-rose-500/40 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all"
+                  >
+                    <span>Ganti / Sambungkan Nomor Lain</span>
+                  </button>
+                )}
               </div>
             </div>
           ) : (

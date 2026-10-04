@@ -31,6 +31,7 @@ interface HeaderProps {
   onOpenBroadcastModal: () => void;
   onSwitchToQrLanding: () => void;
   onResetSession: () => void;
+  onDisconnect: () => void;
   aiEnabled: boolean;
   onToggleAi: () => void;
 }
@@ -46,6 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenBroadcastModal,
   onSwitchToQrLanding,
   onResetSession,
+  onDisconnect,
   aiEnabled,
   onToggleAi,
 }) => {
@@ -283,18 +285,20 @@ export const Header: React.FC<HeaderProps> = ({
                     <span>Reset Sesi (Hasilkan QR Baru)</span>
                   </button>
 
-                  {/* 8. Putuskan Sambungan */}
+                  {/* 8. Putuskan & Ganti Nomor WhatsApp */}
                   {isConnected && (
                     <button
                       type="button"
                       onClick={() => {
                         setDropdownOpen(false);
-                        onOpenConnectModal();
+                        if (confirm('Putuskan koneksi WhatsApp ini dan ganti dengan nomor lain?')) {
+                          onDisconnect();
+                        }
                       }}
                       className="w-full px-3.5 py-2 text-left text-xs font-semibold text-rose-400 hover:bg-rose-950/40 flex items-center gap-2.5 transition-colors border-t border-slate-800/80"
                     >
                       <LogOut className="w-4 h-4" />
-                      <span>Putuskan Sambungan</span>
+                      <span>Putuskan & Ganti Nomor</span>
                     </button>
                   )}
                 </div>

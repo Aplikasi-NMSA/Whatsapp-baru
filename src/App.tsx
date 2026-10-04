@@ -367,6 +367,25 @@ export default function App() {
     }
   };
 
+  const handleDisconnect = async () => {
+    try {
+      await api.logoutWhatsApp();
+      setWaStatus({
+        state: 'disconnected',
+        qrCodeUrl: null,
+        pairingCode: null,
+        connectedNumber: null,
+        connectedName: null,
+        lastConnectedAt: null,
+        error: null,
+      });
+      setViewMode('qr_landing');
+      await api.connectWhatsApp();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   // 1. Tampilan Pertama berupa QR Code Otentik WhatsApp Web
   if (viewMode === 'qr_landing') {
     return (
@@ -376,6 +395,7 @@ export default function App() {
           stats={stats}
           onRefreshQr={() => api.connectWhatsApp()}
           onResetSession={handleResetSession}
+          onDisconnect={handleDisconnect}
           onEnterDashboard={() => setViewMode('dashboard')}
         />
         <CronKeepAliveModal
@@ -402,6 +422,7 @@ export default function App() {
         onOpenBroadcastModal={() => setIsBroadcastModalOpen(true)}
         onSwitchToQrLanding={() => setViewMode('qr_landing')}
         onResetSession={handleResetSession}
+        onDisconnect={handleDisconnect}
         aiEnabled={settings.aiEnabled}
         onToggleAi={() => handleUpdateSettings({ aiEnabled: !settings.aiEnabled })}
       />

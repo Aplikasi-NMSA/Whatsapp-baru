@@ -160,6 +160,15 @@ app.post('/api/whatsapp/reset', async (req, res) => {
   }
 });
 
+app.post('/api/whatsapp/logout', async (req, res) => {
+  try {
+    await whatsappService.logout(true);
+    res.json({ success: true, status: whatsappService.getStatus() });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err?.message });
+  }
+});
+
 app.post('/api/whatsapp/pair', async (req, res) => {
   const { phoneNumber } = req.body;
   if (!phoneNumber) {
